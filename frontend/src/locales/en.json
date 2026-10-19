@@ -1,8 +1,131 @@
 {
-  "en": {
-    "translation": {
-      "app_name": "VirtuLab",
-      "app_tagline": "Chemistry Salt Analysis — Learning Portal"
-    }
+  "app_name": "VirtuLab",
+  "app_tagline": "Chemistry Salt Analysis — Learning Portal",
+  "nav": {
+    "home": "Home",
+    "badges": "Badges",
+    "history": "History",
+    "settings": "Settings"
+  },
+  "login": {
+    "title": "Student Login",
+    "subtitle": "Sign in with your Student ID and PIN",
+    "student_id": "Student ID",
+    "student_id_placeholder": "e.g. STU12345",
+    "pin": "PIN",
+    "pin_placeholder": "4 to 6 digits",
+    "submit": "Log In",
+    "logging_in": "Logging in...",
+    "no_account": "Don't have an account?",
+    "register_link": "Register here"
+  },
+  "register": {
+    "title": "Student Registration",
+    "subtitle": "Enter your school ID and teacher's class join code",
+    "student_id": "Student ID",
+    "student_id_placeholder": "e.g. STU12345",
+    "student_id_help": "Assigned by your school or teacher",
+    "join_code": "Class Join Code",
+    "join_code_placeholder": "6-character code (e.g. WWS5MK)",
+    "display_name": "Display Name",
+    "display_name_placeholder": "Your full name (optional)",
+    "pin": "Create PIN",
+    "pin_placeholder": "4 to 6 digits",
+    "confirm_pin": "Confirm PIN",
+    "confirm_pin_placeholder": "Re-enter your PIN",
+    "submit": "Register",
+    "registering": "Registering...",
+    "have_account": "Already registered?",
+    "login_link": "Log In here"
+  },
+  "change_pin": {
+    "title": "Set a New PIN",
+    "subtitle": "You must change your PIN before accessing the portal.",
+    "old_pin": "Current PIN",
+    "old_pin_placeholder": "Enter your temporary/current PIN",
+    "new_pin": "New PIN",
+    "new_pin_placeholder": "4 to 6 digits",
+    "confirm_new_pin": "Confirm New PIN",
+    "confirm_new_pin_placeholder": "Re-enter your new PIN",
+    "submit": "Update PIN",
+    "updating": "Updating PIN...",
+    "success": "PIN updated successfully!"
+  },
+  "home": {
+    "welcome": "Welcome, {{name}}!",
+    "student_id": "Student ID: {{id}}",
+    "enrolled_class": "Class: {{name}}",
+    "not_enrolled": "No active class enrolled",
+    "redeem_prompt": "Have a completion code from your Unity Lab session?",
+    "redeem_action": "Redeem Lab Code",
+    "overview": "Your Progress",
+    "points": "Points",
+    "level": "Level",
+    "completed": "Completed Salts",
+    "start_learning": "Unlock salts by completing lab experiments in Unity VirtuLab."
+  },
+  "settings": {
+    "title": "Settings",
+    "profile_section": "Profile",
+    "display_name": "Name",
+    "student_id": "Student ID",
+    "classes_section": "Enrolled Classes",
+    "no_classes": "No classes enrolled",
+    "security_section": "Security",
+    "change_pin_btn": "Change PIN",
+    "language_section": "Language",
+    "logout_btn": "Log Out"
+  },
+  "redeem": {
+    "title": "Redeem Lab Code",
+    "placeholder_text": "Enter your lab completion code here to unlock quizzes."
+  },
+  "quiz": {
+    "title": "Salt Analysis Quiz",
+    "placeholder_text": "Quiz session will appear here."
+  },
+  "result": {
+    "title": "Quiz Results",
+    "placeholder_text": "Your quiz summary and points will appear here."
+  },
+  "badges": {
+    "title": "Badges & Achievements",
+    "placeholder_text": "Earned badges will be displayed here."
+  },
+  "history": {
+    "title": "Attempt History",
+    "placeholder_text": "Past lab attempts and points ledger will appear here."
+  },
+  "errors": {
+    "generic_error": "An unexpected error occurred. Please try again.",
+    "invalid_student_id": "Invalid Student ID format. Use letters and numbers (no spaces or @).",
+    "invalid_pin": "PIN must be between 4 and 6 digits.",
+    "pin_mismatch": "The two PIN entries do not match.",
+    "invalid_join_code": "Class join code is invalid or inactive. Please check with your teacher.",
+    "already_registered": "This Student ID is already registered. Please log in.",
+    "rate_limited": "Too many attempts. Please try again later.",
+    "invalid_credentials": "Invalid Student ID or PIN.",
+    "wrong_current_pin": "Current PIN is incorrect.",
+    "weak_password": "Password is too weak.",
+    "bad_format": "Invalid completion code format.",
+    "invalid_code": "Completion code is invalid or could not be verified.",
+    "already_used": "This completion code has already been redeemed.",
+    "expired": "This completion code has expired.",
+    "item_already_unlocked": "This salt has already been unlocked.",
+    "server_not_configured": "Verification secret is not configured on server.",
+    "not_authenticated": "Your session has expired. Please log in again.",
+    "forbidden": "You do not have permission for this action.",
+    "not_found": "The requested item was not found.",
+    "bad_request": "Invalid request. Please check your inputs.",
+    "network_error": "Cannot connect to server. Please check your internet connection."
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "language": "Language",
+    "english": "English",
+    "kannada": "ಕನ್ನಡ"
   }
 }

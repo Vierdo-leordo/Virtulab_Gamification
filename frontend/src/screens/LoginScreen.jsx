@@ -1,0 +1,138 @@
+/**
+ * frontend/src/screens/LoginScreen.jsx
+ * Student login screen.
+ * Form: Student ID + PIN (4-6 digits numeric).
+ * Student ID is stripped of spaces and uppercased before submit.
+ */
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useSession } from "../session.jsx";
+import api, { getTranslatedError } from "../api.js";
+import LanguageSelector from "../components/LanguageSelector.jsx";
+
+export default function LoginScreen() {
+  const { t } = useTranslation();
+  const { login } = useSession();
+  const navigate = useNavigate();
+
+  const [studentId, setStudentId] = useState("");
+  const [pin, setPin] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+
+    // Normalise student ID per portal rule: remove spaces, trim, uppercase
+    const cleanSid = studentId.replace(/\s+/g, "").toUpperCase();
+    const cleanPin = pin.trim();
+
+    if (!cleanSid) {
+      setErrorMsg(t("errors.invalid_student_id"));
+      return;
+    }
+
+    if (!cleanPin || !/^\d{4,6}$/.test(cleanPin)) {
+      setErrorMsg(t("errors.invalid_pin"));
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const data = await api.post("/auth/login", {
+        identifier: cleanSid,
+        secret: cleanPin,
+      });
+
+      login(data.token, data.me);
+
+      if (data.me?.must_change_pin) {
+        navigate("/change-pin", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+    } catch (err) {
+      setErrorMsg(getTranslatedError(t, err));
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="auth-container d-flex flex-column min-vh-100 justify-content-center py-4 px-3">
+      <div className="auth-card card mx-auto shadow-sm border-0 w-100" style={{ maxWidth: "420px" }}>
+        <div className="card-body p-4">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <span className="app-brand fw-bold text-primary fs-4">{t("app_name")}</span>
+            <LanguageSelector variant="compact" />
+          </div>
+
+          <h1 className="h4 fw-bold mb-1">{t("login.title")}</h1>
+          <p className="text-muted small mb-4">{t("login.subtitle")}</p>
+
+          {errorMsg && (
+            <div className="alert alert-danger py-2 px-3 small" role="alert">
+              {errorMsg}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="mb-3">
+              <label htmlFor="login-student-id" className="form-label fw-semibold small">
+                {t("login.student_id")}
+              </label>
+              <input
+                id="login-student-id"
+                type="text"
+                autoComplete="username"
+                className="form-control form-control-lg fs-6"
+                placeholder={t("login.student_id_placeholder")}
+                value={studentId}
+                onChange={(e) => setStudentId(e.target.value.toUpperCase())}
+                disabled={submitting}
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="login-pin" className="form-label fw-semibold small">
+                {t("login.pin")}
+              </label>
+              <input
+                id="login-pin"
+                type="password"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={6}
+                autoComplete="current-password"
+                className="form-control form-control-lg fs-6 text-center font-monospace letter-spacing-2"
+                placeholder={t("login.pin_placeholder")}
+                value={pin}
+                onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                disabled={submitting}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary btn-lg w-100 fw-bold min-touch-target"
+              disabled={submitting}
+            >
+              {submitting ? t("login.logging_in") : t("login.submit")}
+            </button>
+          </form>
+
+          <div className="text-center mt-4 pt-2 border-top">
+            <span className="text-muted small me-1">{t("login.no_account")}</span>
+            <Link to="/register" className="small fw-semibold text-decoration-none">
+              {t("login.register_link")}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

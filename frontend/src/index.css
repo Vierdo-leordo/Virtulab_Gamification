@@ -1,111 +1,167 @@
+/**
+ * frontend/src/index.css
+ * VirtuLab Portal Styles.
+ * Mobile-first, high-contrast, accessible touch targets (min 44px),
+ * blue cation chips and orange anion chips.
+ */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --app-max-width: 540px;
+  --cation-bg: #e8f0fe;
+  --cation-border: #b3d1ff;
+  --cation-text: #0b57d0;
+  --anion-bg: #fff0e6;
+  --anion-border: #ffd1b3;
+  --anion-text: #b54708;
+  --bottom-nav-height: 64px;
 }
 
 body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
   margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Ensure minimum 360px viewport compatibility */
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  min-width: 320px;
+  width: 100%;
+}
+
+.container-sm {
+  max-width: var(--app-max-width) !important;
+}
+
+/* Minimum 44px touch target ergonomics */
+.min-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Top bar */
+.top-bar {
+  z-index: 1020;
+}
+
+.app-brand {
+  letter-spacing: -0.5px;
+}
+
+/* Language selector */
+.language-select {
+  min-height: 38px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  height: var(--bottom-nav-height);
+  z-index: 1030;
+}
+
+.bottom-nav-item {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #6c757d;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: var(--text-h);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 12px;
+  transition: color 0.15s ease-in-out;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+.bottom-nav-item:hover,
+.bottom-nav-item:focus {
+  color: #0d6efd;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
+.bottom-nav-item.active {
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+.bottom-nav-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 2px;
+}
+
+/* Main scrollable content */
+.main-content {
+  padding-bottom: calc(var(--bottom-nav-height) + 24px) !important;
+}
+
+/* Auth Cards */
+.auth-container {
+  background: #f0f4f8;
+}
+
+.auth-card {
+  border-radius: 12px;
+}
+
+/* Ion Chips per Hard Rules: Cation = Blue, Anion = Orange */
+.ion-chip {
   display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.ion-chip-symbol {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.ion-chip-cation {
+  background-color: var(--cation-bg);
+  border: 1px solid var(--cation-border);
+  color: var(--cation-text);
+}
+
+.ion-chip-anion {
+  background-color: var(--anion-bg);
+  border: 1px solid var(--anion-border);
+  color: var(--anion-text);
+}
+
+.ion-chip-name {
+  font-weight: 500;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+/* Subscripts and superscripts formatting */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* Text letter spacing for PIN inputs */
+.letter-spacing-2 {
+  letter-spacing: 0.25em;
 }

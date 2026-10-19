@@ -1,0 +1,41 @@
+/**
+ * frontend/src/utils/chemistry.js
+ * Ion display and formula formatting per VirtuLab spec.
+ * NO INVENTED CHEMISTRY (Hard Rule 2).
+ */
+
+export const CATIONS = {
+  NA: { key: "NA", symbol: "Na+", formula: "Na", charge: "+", name: "sodium ion" },
+  NH4: { key: "NH4", symbol: "NH4+", formula: "NH4", charge: "+", name: "ammonium ion" },
+  CU: { key: "CU", symbol: "Cu2+", formula: "Cu", charge: "2+", name: "copper(II) ion" },
+  FE2: { key: "FE2", symbol: "Fe2+", formula: "Fe", charge: "2+", name: "iron(II) ion" },
+  FE3: { key: "FE3", symbol: "Fe3+", formula: "Fe", charge: "3+", name: "iron(III) ion" },
+  AL: { key: "AL", symbol: "Al3+", formula: "Al", charge: "3+", name: "aluminium ion" },
+  ZN: { key: "ZN", symbol: "Zn2+", formula: "Zn", charge: "2+", name: "zinc ion" },
+  BA: { key: "BA", symbol: "Ba2+", formula: "Ba", charge: "2+", name: "barium ion" },
+  CA: { key: "CA", symbol: "Ca2+", formula: "Ca", charge: "2+", name: "calcium ion" },
+  MG: { key: "MG", symbol: "Mg2+", formula: "Mg", charge: "2+", name: "magnesium ion" },
+  PB: { key: "PB", symbol: "Pb2+", formula: "Pb", charge: "2+", name: "lead(II) ion" },
+};
+
+export const ANIONS = {
+  CL: { key: "CL", symbol: "Cl-", formula: "Cl", charge: "-", name: "chloride ion" },
+  SO4: { key: "SO4", symbol: "SO4 2-", formula: "SO4", charge: "2-", name: "sulphate ion" },
+  CO3: { key: "CO3", symbol: "CO3 2-", formula: "CO3", charge: "2-", name: "carbonate ion" },
+  NO3: { key: "NO3", symbol: "NO3-", formula: "NO3", charge: "-", name: "nitrate ion" },
+};
+
+export const SALT_ITEMS = {
+  nacl: { item: "nacl", cation: "NA", anion: "CL", formula: "NaCl", name: "Sodium Chloride" },
+  nh4cl: { item: "nh4cl", cation: "NH4", anion: "CL", formula: "NH4Cl", name: "Ammonium Chloride" },
+  cuso4: { item: "cuso4", cation: "CU", anion: "SO4", formula: "CuSO4", name: "Copper(II) Sulphate" },
+  feso4: { item: "feso4", cation: "FE2", anion: "SO4", formula: "FeSO4", name: "Iron(II) Sulphate" },
+  fecl3: { item: "fecl3", cation: "FE3", anion: "CL", formula: "FeCl3", name: "Iron(III) Chloride" },
+  al2so43: { item: "al2so43", cation: "AL", anion: "SO4", formula: "Al2(SO4)3", name: "Aluminium Sulphate" },
+  znso4: { item: "znso4", cation: "ZN", anion: "SO4", formula: "ZnSO4", name: "Zinc Sulphate" },
+  bacl2: { item: "bacl2", cation: "BA", anion: "CL", formula: "BaCl2", name: "Barium Chloride" },
+  caco3: { item: "caco3", cation: "CA", anion: "CO3", formula: "CaCO3", name: "Calcium Carbonate" },
+  mgso4: { item: "mgso4", cation: "MG", anion: "SO4", formula: "MgSO4", name: "Magnesium Sulphate" },
+  pbno32: { item: "pbno32", cation: "PB", anion: "NO3", formula: "Pb(NO3)2", name: "Lead(II) Nitrate" },
+  nh42co3: { item: "nh42co3", cation: "NH4", anion: "CO3", formula: "(NH4)2CO3", name: "Ammonium Carbonate" },
+};
