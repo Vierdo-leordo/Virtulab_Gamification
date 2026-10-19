@@ -40,6 +40,14 @@ export function getTranslatedError(t, err) {
   const code = typeof err === "string" ? err : err.error;
   if (!code) return t("errors.generic_error");
 
+  if (code === "rate_limited") {
+    const seconds = err?.extra?.retry_after ?? err?.retry_after;
+    if (seconds) {
+      const minutes = Math.max(1, Math.ceil(seconds / 60));
+      return t("errors.rate_limited_with_minutes", { minutes });
+    }
+  }
+
   const key = `errors.${code}`;
   const translated = t(key);
   if (translated === key || !translated) {

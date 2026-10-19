@@ -39,3 +39,44 @@ export const SALT_ITEMS = {
   pbno32: { item: "pbno32", cation: "PB", anion: "NO3", formula: "Pb(NO3)2", name: "Lead(II) Nitrate" },
   nh42co3: { item: "nh42co3", cation: "NH4", anion: "CO3", formula: "(NH4)2CO3", name: "Ammonium Carbonate" },
 };
+
+/**
+ * Decode a completion code like "VL-CU-SO4-XQMS-2X7P" into formula, name, cation, anion.
+ * Returns null if invalid prefix or unrecognized cation/anion.
+ */
+export function decodeCompletionCode(rawCode) {
+  if (!rawCode || typeof rawCode !== "string") return null;
+  const clean = rawCode
+    .replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g, "-")
+    .replace(/\s+/g, "")
+    .toUpperCase();
+
+  const parts = clean.split("-");
+  if (parts.length < 3 || parts[0] !== "VL") return null;
+
+  const cationKey = parts[1];
+  const anionKey = parts[2];
+
+  const cationMeta = CATIONS[cationKey];
+  const anionMeta = ANIONS[anionKey];
+  if (!cationMeta || !anionMeta) return null;
+
+  const salt = Object.values(SALT_ITEMS).find(
+    (s) => s.cation === cationKey && s.anion === anionKey
+  );
+
+  return {
+    raw: rawCode,
+    clean,
+    cationKey,
+    anionKey,
+    cation: cationMeta,
+    anion: anionMeta,
+    formula: salt ? salt.formula : `${cationKey}${anionKey}`,
+    name: salt ? salt.name : `${cationMeta.name} ${anionMeta.name}`,
+    nonce: parts[3] || "",
+    chk: parts[4] || "",
+    isFullCode: parts.length === 5 && (parts[3] || "").length === 4 && (parts[4] || "").length === 4,
+  };
+}
+

@@ -115,16 +115,18 @@ body {
 .ion-chip {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
+  gap: 4px;
+  padding: 3px 6px;
   border-radius: 6px;
-  font-size: 0.825rem;
+  font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.2;
+  max-width: 100%;
 }
 
 .ion-chip-symbol {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: nowrap;
 }
 
 .ion-chip-cation {
@@ -141,8 +143,92 @@ body {
 
 .ion-chip-name {
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Salt grid: exactly 2 columns at 360px viewport width */
+.salt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.salt-card {
+  border-radius: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+}
+
+.salt-card-unlocked {
+  border: 2px solid #0d6efd !important;
+  box-shadow: 0 0 0 1px #0d6efd, 0 3px 10px rgba(13, 110, 253, 0.15) !important;
+}
+
+.salt-card-completed {
+  border: 2px solid #198754 !important;
+  box-shadow: 0 0 0 1px #198754, 0 3px 10px rgba(25, 135, 84, 0.15) !important;
+}
+
+.salt-card-locked {
+  background-color: #f1f3f5;
+  border: 1px solid #dee2e6 !important;
+  opacity: 0.88;
+}
+
+.salt-name {
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: #6c757d;
+  height: 2.5em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.salt-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.extra-small {
+  font-size: 0.7rem;
+}
+
+/* Badges horizontal strip */
+.badges-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px 2px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.badges-strip::-webkit-scrollbar {
+  height: 4px;
+}
+
+.badges-strip::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.badge-strip-item {
+  min-width: 110px;
+  max-width: 130px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 /* Subscripts and superscripts formatting */

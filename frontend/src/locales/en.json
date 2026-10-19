@@ -57,12 +57,31 @@
     "enrolled_class": "Class: {{name}}",
     "not_enrolled": "No active class enrolled",
     "redeem_prompt": "Have a completion code from your Unity Lab session?",
-    "redeem_action": "Redeem Lab Code",
+    "redeem_action": "Redeem a Code",
     "overview": "Your Progress",
     "points": "Points",
     "level": "Level",
     "completed": "Completed Salts",
-    "start_learning": "Unlock salts by completing lab experiments in Unity VirtuLab."
+    "start_learning": "Unlock salts by completing lab experiments in Unity VirtuLab.",
+    "earned_badges": "Earned Badges",
+    "no_badges_yet": "No badges earned yet. Redeem codes and ace quizzes to earn badges!",
+    "view_all_badges": "View all",
+    "points_to_next": "{{remaining}} pts to {{nextLevel}}",
+    "max_level": "Max Level Reached",
+    "salts_title": "Salt Analysis Salts",
+    "completed_count": "{{completed}} / {{total}} completed"
+  },
+  "salt": {
+    "locked": "Locked",
+    "locked_hint": "Complete lab experiment to unlock",
+    "quiz_ready": "Quiz ready",
+    "start_quiz": "Start Quiz",
+    "resume_quiz": "Resume Quiz",
+    "completed": "Completed",
+    "score": "Score: {{percent}}%",
+    "view_result": "View Result",
+    "practice_again": "Practice Again",
+    "no_lab_data": "Lab data not available"
   },
   "settings": {
     "title": "Settings",
@@ -78,11 +97,30 @@
   },
   "redeem": {
     "title": "Redeem Lab Code",
+    "subtitle": "Enter your completion code and optional result token from the Unity Lab session.",
+    "code_label": "Completion Code",
+    "code_placeholder": "e.g. VL-CU-SO4-7K3Q-9F2A",
+    "code_help": "Format: VL-CATION-ANION-NONCE-CHK (spaces are allowed)",
+    "token_label": "Result Token (optional)",
+    "token_placeholder": "Paste your result token here if you have one...",
+    "submit": "Redeem Code",
+    "redeeming": "Verifying...",
+    "detected_salt": "Detected salt:",
+    "success_title": "Code Redeemed Successfully!",
+    "already_title": "Already Redeemed",
+    "unlocked_sentence": "The quiz for this salt is now unlocked!",
+    "token_unusable_note": "Your lab data could not be verified, but the quiz has been unlocked.",
+    "new_badge_toast": "Badge unlocked!",
+    "start_quiz": "Start Quiz",
+    "redeem_another": "Redeem Another Code",
+    "back_home": "Back to Home",
     "placeholder_text": "Enter your lab completion code here to unlock quizzes."
   },
   "quiz": {
     "title": "Salt Analysis Quiz",
-    "placeholder_text": "Quiz session will appear here."
+    "placeholder_text": "Quiz session will appear here.",
+    "not_available_yet": "The quiz is not available yet. Please check back soon!",
+    "starting": "Starting quiz..."
   },
   "result": {
     "title": "Quiz Results",
@@ -104,6 +142,7 @@
     "invalid_join_code": "Class join code is invalid or inactive. Please check with your teacher.",
     "already_registered": "This Student ID is already registered. Please log in.",
     "rate_limited": "Too many attempts. Please try again later.",
+    "rate_limited_with_minutes": "Too many attempts. Please wait {{minutes}} minute(s) before trying again.",
     "invalid_credentials": "Invalid Student ID or PIN.",
     "wrong_current_pin": "Current PIN is incorrect.",
     "weak_password": "Password is too weak.",
