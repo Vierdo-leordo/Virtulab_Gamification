@@ -72,8 +72,10 @@ def _need(cond: bool, reason: str = "bad_payload") -> None:
         raise TokenError(reason)
 
 
-def validate_payload(p: dict) -> dict:
-    """Strict v1 schema. Returns a copy with defaults filled. Raises TokenError."""
+def validate_payload(p: dict, items: dict | None = None) -> dict:
+    """Strict v1 schema. Returns a copy with defaults filled. Raises TokenError.
+    items: optional {item_id: (CATION, ANION)}; defaults to the built-in table."""
+    items = ITEM_PAIRS if items is None else items
     _need(isinstance(p, dict))
     _need(set(p) <= _ALLOWED_KEYS, "unknown_field")
     _need(_is_int(p.get("v")) and p["v"] == SUPPORTED_VERSION, "unsupported_version")
@@ -85,14 +87,14 @@ def validate_payload(p: dict) -> dict:
         out["student"] = normalise_student_id(p["student"])
     except ValueError:
         raise TokenError("bad_payload")
-    _need(isinstance(p["item"], str) and p["item"] in ITEM_PAIRS)
+    _need(isinstance(p["item"], str) and p["item"] in items)
     out["item"] = p["item"]
     _need(isinstance(p["code"], str))
     try:
         parsed = parse_code(p["code"])
     except CodeError:
         raise TokenError("bad_payload")
-    _need((parsed.cation, parsed.anion) == ITEM_PAIRS[p["item"]], "item_code_mismatch")
+    _need((parsed.cation, parsed.anion) == tuple(items[p["item"]]), "item_code_mismatch")
     out["code"] = parsed.canonical
     _need(_is_int(p["issued"]) and p["issued"] >= 0)
     out["issued"] = p["issued"]
@@ -143,7 +145,7 @@ def build_token(payload: dict, secret: str, validate: bool = True) -> str:
 
 
 def parse_token(token: str, secret: str, expected_student: str | None = None,
-                expected_code: str | None = None) -> dict:
+                expected_code: str | None = None, items: dict | None = None) -> dict:
     """Verify and decode. Raises TokenError(reason) on ANY problem; the portal then
     ignores the token and falls back to a bank-only quiz."""
     _need(isinstance(token, str), "bad_format")
@@ -165,7 +167,7 @@ def parse_token(token: str, secret: str, expected_student: str | None = None,
         payload = json.loads(raw.decode("utf-8"))
     except (UnicodeDecodeError, ValueError):
         raise TokenError("bad_json")
-    payload = validate_payload(payload)
+    payload = validate_payload(payload, items)
     if expected_student is not None:
         try:
             ok = normalise_student_id(expected_student) == payload["student"]

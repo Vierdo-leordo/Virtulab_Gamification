@@ -1,19 +1,11 @@
-"""
-backend/manage.py
-Django management entry point.
-"""
+#!/usr/bin/env python
 import os
 import sys
 
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Is the virtual environment activated?"
-        ) from exc
+    from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
 
 

@@ -154,16 +154,20 @@ def ist_today(now_utc: dt.datetime | None = None) -> dt.date:
 
 
 def verify_code(code: str, student_id: str, secret: str, today: dt.date | None = None,
-                window_days: int = 30, drift_days: int = 1) -> VerifyResult:
+                window_days: int = 30, drift_days: int = 1,
+                pair_to_item: dict | None = None) -> VerifyResult:
     """Check a code for the logged-in student. Accepts issue dates from
     (today - window_days) to (today + drift_days), inclusive.
-    Single use and rate limiting are the PORTAL's job (database), not done here."""
+    Single use and rate limiting are the PORTAL's job (database), not done here.
+    pair_to_item: optional {(CATION, ANION): item_id}; defaults to the built-in table.
+    The portal passes the table it loaded from the database so new experiments need no code."""
     today = today or ist_today()
+    pair_to_item = PAIR_TO_ITEM if pair_to_item is None else pair_to_item
     try:
         p = parse_code(code)
     except CodeError as e:
         return VerifyResult(False, e.reason)
-    item_id = PAIR_TO_ITEM.get((p.cation, p.anion))
+    item_id = pair_to_item.get((p.cation, p.anion))
     if item_id is None:
         return VerifyResult(False, "unknown_pair")
     try:

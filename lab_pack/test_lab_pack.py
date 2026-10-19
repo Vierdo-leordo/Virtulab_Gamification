@@ -178,6 +178,28 @@ class TestTokens(unittest.TestCase):
         validate_payload({**base, "mis": list(MISTAKES)})
 
 
+class TestCustomItemTable(unittest.TestCase):
+    """The portal passes a table loaded from its database (new experiments = data only)."""
+    TABLE = {"dummy_pendulum": ("PHY", "PEN")}
+
+    def test_verify_with_custom_pair_table(self):
+        from lab_pack.verify_code import ParsedCode, compute_chk
+        chk = compute_chk(SECRET, "S1", "dummy_pendulum", "ABCD", TODAY)
+        code = ParsedCode("PHY", "PEN", "ABCD", chk).canonical
+        r = verify_code(code, "S1", SECRET, TODAY, pair_to_item={("PHY", "PEN"): "dummy_pendulum"})
+        self.assertTrue(r.ok)
+        self.assertEqual(r.item_id, "dummy_pendulum")
+        self.assertEqual(verify_code(code, "S1", SECRET, TODAY).reason, "unknown_pair")  # default table
+
+    def test_token_with_custom_item_table(self):
+        from lab_pack.verify_code import ParsedCode, compute_chk
+        code = ParsedCode("PHY", "PEN", "ABCD", compute_chk(SECRET, "S1", "dummy_pendulum", "ABCD", TODAY)).canonical
+        payload = {"v": 1, "student": "S1", "item": "dummy_pendulum", "code": code, "issued": 1, "att": 1, "passed": True}
+        with self.assertRaises(TokenError):
+            validate_payload(payload)
+        validate_payload(payload, self.TABLE)
+
+
 class TestNoRealSecrets(unittest.TestCase):
     def test_secret_is_fake_and_not_hard_coded_in_modules(self):
         self.assertIn("NOT-REAL", SECRET)

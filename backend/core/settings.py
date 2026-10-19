@@ -1,50 +1,35 @@
-"""
-backend/core/settings.py
-Django settings for VirtuLab Portal.
-
-Secrets are loaded from environment variables (never hard-coded).
-Copy .env.example → .env and fill in real values.
-"""
-
-from __future__ import annotations
-
+"""Django settings. Secrets come ONLY from environment variables (HARD RULE 4)."""
 import os
+import sys
 from pathlib import Path
 
-# ── python-dotenv: load .env file if present (dev convenience) ──────────────
-try:
-    from dotenv import load_dotenv
-    load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
-except ImportError:
-    pass  # python-dotenv not installed in this env; env vars must be set externally
+from dotenv import load_dotenv
 
-# ── Paths ───────────────────────────────────────────────────────────────────
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent          # backend/
+REPO_ROOT = BASE_DIR.parent                                 # project root (lab_pack/, virtulab_data/, config.json)
+sys.path.insert(0, str(REPO_ROOT))                          # so `import lab_pack` works (one copy, not a fork)
+load_dotenv(REPO_ROOT / ".env")
 
-# ── Security (all secrets from env vars) ────────────────────────────────────
-SECRET_KEY = os.environ["SECRET_KEY"]           # required — no default
-HMAC_SECRET = os.environ.get("HMAC_SECRET", "") # required for code verification
-AI_KEY = os.environ.get("AI_KEY", "")           # optional
+TESTING = "test" in sys.argv
+if TESTING:                                                  # tests never need your real .env
+    os.environ.setdefault("SECRET_KEY", "test-only-secret-key-not-for-real-use-0123456789")
+    os.environ.setdefault("HMAC_SECRET", "VIRTULAB-TEST-SECRET-NOT-REAL")
 
+if TESTING:                                                  # fast hashing ONLY while running tests
+    PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+
+SECRET_KEY = os.environ["SECRET_KEY"]                        # missing key must fail loudly (decision D10)
+HMAC_SECRET = os.environ.get("HMAC_SECRET", "")              # checked when a code is redeemed
+AI_KEY = os.environ.get("AI_KEY", "")
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("1", "true", "yes")
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,testserver").split(",") if h.strip()]
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()]
 
-_allowed_raw = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1")
-ALLOWED_HOSTS = [h.strip() for h in _allowed_raw.split(",") if h.strip()]
-
-# ── Applications ─────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    # Third-party
-    "rest_framework",
-    # Local
-    "api",
+    "django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes",
+    "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
+    "rest_framework", "api",
 ]
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -54,61 +39,32 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 ROOT_URLCONF = "core.urls"
-
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = "core.wsgi.application"
-
-# ── Database ─────────────────────────────────────────────────────────────────
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-# ── Password validation ───────────────────────────────────────────────────────
-AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
-
-# ── Internationalisation ──────────────────────────────────────────────────────
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "Asia/Kolkata"   # IST — used for code date-window checks
-USE_I18N = True
-USE_TZ = True
-
-# ── Static files ──────────────────────────────────────────────────────────────
-STATIC_URL = "static/"
-
-# ── Default auto field ─────────────────────────────────────────────────────────
+TEMPLATES = [{
+    "BACKEND": "django.template.backends.django.DjangoTemplates", "DIRS": [], "APP_DIRS": True,
+    "OPTIONS": {"context_processors": [
+        "django.template.context_processors.request", "django.contrib.auth.context_processors.auth",
+        "django.contrib.messages.context_processors.messages"]},
+}]
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}}
+AUTH_PASSWORD_VALIDATORS = []                                # PINs are 4-6 digits by design; brute force is rate-limited
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+LANGUAGE_CODE = "en"
+TIME_ZONE = "Asia/Kolkata"                                   # decision D11
+USE_TZ = True
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# ── Django REST Framework ─────────────────────────────────────────────────────
 REST_FRAMEWORK = {
-    "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.JSONRenderer",
-    ],
-    "DEFAULT_PARSER_CLASSES": [
-        "rest_framework.parsers.JSONParser",
-    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": ["api.auth.TokenAuth"],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "EXCEPTION_HANDLER": "api.errors.handler",
+    "UNAUTHENTICATED_USER": None,
 }
+
+if not DEBUG and not TESTING:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
