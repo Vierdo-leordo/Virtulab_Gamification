@@ -355,7 +355,7 @@ export default function QuizScreen() {
             className="btn btn-sm btn-outline-dark py-0 min-touch-target"
             onClick={flushRetryQueue}
           >
-            Retry now
+            {t("quiz.retry_now")}
           </button>
         </div>
       )}
@@ -501,8 +501,8 @@ export default function QuizScreen() {
               }`}
             >
               {unansweredCount === 0
-                ? "All Answered"
-                : `${unansweredCount} Unanswered`}
+                ? t("quiz.all_answered")
+                : t("quiz.n_unanswered", { count: unansweredCount })}
             </span>
           </div>
 
@@ -532,7 +532,7 @@ export default function QuizScreen() {
                       </span>
                       {q.source === "dynamic" && (
                         <span className="badge bg-info-subtle text-info border border-info-subtle small py-0">
-                          🧪 dynamic
+                          🧪 {t("quiz.dynamic_tag")}
                         </span>
                       )}
                     </div>
@@ -564,7 +564,7 @@ export default function QuizScreen() {
                           goToQuestion(idx);
                         }}
                       >
-                        Answer
+                        {t("quiz.answer_btn")}
                       </button>
                     )}
                   </div>

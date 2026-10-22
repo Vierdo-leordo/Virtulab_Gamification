@@ -258,7 +258,7 @@ export default function ResultScreen() {
             ))}
           </div>
         ) : (
-          <p className="text-muted small mb-0">0 points earned</p>
+        <p className="text-muted small mb-0">{t("result.no_points_earned")}</p>
         )}
       </div>
 
@@ -313,7 +313,7 @@ export default function ResultScreen() {
                   if (f.key === "feedback.weak_topic" && f.params?.kind === "radical") {
                     return (
                       <div key={idx} className="alert alert-secondary py-2 px-3 small mb-0">
-                        Focus on radical: <FormattedIon ionKeyOrTag={f.params.tag} />
+                        {t("result.focus_on_radical")} <FormattedIon ionKeyOrTag={f.params.tag} />
                       </div>
                     );
                   }
@@ -345,7 +345,7 @@ export default function ResultScreen() {
                         key={idx}
                         className="alert alert-light border py-2 px-3 small mb-0 d-flex flex-wrap align-items-center gap-2"
                       >
-                        <span className="text-dark">In the lab you guessed:</span>
+                        <span className="text-dark">{t("result.wrong_guess_label")}</span>
                         <div className="d-inline-flex gap-1">
                           {ins.params?.cat && (
                             <IonChip ionKey={ins.params.cat} type="cation" />
@@ -398,18 +398,18 @@ export default function ResultScreen() {
                     </span>
                     {q.source === "dynamic" && (
                       <span className="badge bg-info-subtle text-info border border-info-subtle small py-0">
-                        🧪 dynamic
+                        🧪 {t("quiz.dynamic_tag")}
                       </span>
                     )}
                   </div>
                   <div>
                     {isCorrect ? (
                       <span className="badge bg-success-subtle text-success border border-success-subtle">
-                        ✓ Correct
+                        ✓ {t("result.correct")}
                       </span>
                     ) : (
                       <span className="badge bg-danger-subtle text-danger border border-danger-subtle">
-                        ✗ Incorrect
+                        ✗ {t("result.incorrect")}
                       </span>
                     )}
                   </div>

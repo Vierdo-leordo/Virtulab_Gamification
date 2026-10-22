@@ -147,7 +147,11 @@
     "error_saving": "Connection interrupted. Answers saved locally and will retry.",
     "error_submitting": "Submission failed. Please check connection and try again.",
     "retry_submit": "Retry Submission",
-    "jump_to_question": "Go to question"
+    "jump_to_question": "Go to question",
+    "retry_now": "Retry now",
+    "all_answered": "All Answered",
+    "n_unanswered": "{{count}} Unanswered",
+    "answer_btn": "Answer"
   },
   "result": {
     "title": "Quiz Results",
@@ -173,7 +177,12 @@
     "not_answered": "Not answered",
     "back_home": "Back to Home",
     "practice_again": "Practice Again",
-    "starting_practice": "Starting practice..."
+    "starting_practice": "Starting practice...",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "no_points_earned": "No points earned",
+    "focus_on_radical": "Focus on radical:",
+    "wrong_guess_label": "In the lab you guessed:"
   },
   "points": {
     "correct_bank_easy": "Easy question (Question Bank)",
