@@ -251,3 +251,67 @@ sub {
 .letter-spacing-2 {
   letter-spacing: 0.25em;
 }
+
+/* ============================================================
+   Skeleton loading placeholders
+   ============================================================ */
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, #e9ecef 25%, #f8f9fa 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+  border-radius: 4px;
+  display: block;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   Focus visible styles (accessibility)
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid #0b57d0;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   History attempt row (button styled as card)
+   ============================================================ */
+.attempt-row {
+  background: #fff;
+  border: none;
+  text-align: left;
+  transition: box-shadow 0.15s, transform 0.1s;
+}
+
+.attempt-row:hover,
+.attempt-row:focus-visible {
+  box-shadow: 0 4px 16px rgba(13, 110, 253, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   Grayscale filter for locked badge icons
+   ============================================================ */
+.grayscale {
+  filter: grayscale(100%);
+}
+
+/* min-w-0 utility to allow flex text truncation */
+.min-w-0 {
+  min-width: 0;
+}

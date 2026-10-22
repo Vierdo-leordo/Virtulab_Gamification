@@ -93,7 +93,8 @@
     "security_section": "Security",
     "change_pin_btn": "Change PIN",
     "language_section": "Language",
-    "logout_btn": "Log Out"
+    "logout_btn": "Log Out",
+    "logging_out": "Logging out..."
   },
   "redeem": {
     "title": "Redeem Lab Code",
@@ -216,11 +217,28 @@
   },
   "badges": {
     "title": "Badges & Achievements",
-    "placeholder_text": "Earned badges will be displayed here."
+    "subtitle": "{{earned}} of {{total}} earned",
+    "placeholder_text": "Earned badges will be displayed here.",
+    "empty": "No badges yet. Complete quizzes to earn your first badge!",
+    "earned_section": "Earned Badges",
+    "locked_section": "Locked Badges",
+    "earned_label": "Earned",
+    "locked_label": "Locked",
+    "earned_on": "Earned on {{date}}"
   },
   "history": {
     "title": "Attempt History",
-    "placeholder_text": "Past lab attempts and points ledger will appear here."
+    "subtitle": "Your past quiz attempts and points ledger.",
+    "placeholder_text": "Past lab attempts and points ledger will appear here.",
+    "empty_title": "No history yet",
+    "empty_hint": "Complete a quiz to see your attempt history here.",
+    "tab_attempts": "Quizzes",
+    "tab_ledger": "Points",
+    "no_attempts": "No quiz attempts yet.",
+    "no_ledger": "No points earned yet.",
+    "total_points": "Total points earned",
+    "tap_for_result": "View results",
+    "open_result_aria": "Open results for {{name}}"
   },
   "errors": {
     "generic_error": "An unexpected error occurred. Please try again.",

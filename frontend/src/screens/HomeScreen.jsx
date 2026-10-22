@@ -17,14 +17,19 @@ import api from "../api.js";
 import SaltCard from "../components/SaltCard.jsx";
 
 export default function HomeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { me } = useSession();
   const navigate = useNavigate();
 
+  const { i18n } = useTranslation();
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizNotice, setQuizNotice] = useState(null);
   const [startingQuizId, setStartingQuizId] = useState(null);
+
+  useEffect(() => {
+    document.title = t("app_name") + " — " + t("app_tagline");
+  }, [t, i18n.language]);
 
   // Fetch progress data from GET /progress and keep fresh on focus / visibility / redeem
   useEffect(() => {
