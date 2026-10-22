@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views as v
+from . import views_quiz as vq
 
 urlpatterns = [
     path("health/", v.health),
@@ -13,6 +14,12 @@ urlpatterns = [
     path("progress", v.progress),
     path("classes/join", v.join_class),
     path("redeem", v.redeem),
+    path("quiz/start", vq.quiz_start),
+    path("quiz/<int:pk>", vq.quiz_detail),
+    path("quiz/<int:pk>/answers", vq.quiz_answers),
+    path("quiz/<int:pk>/submit", vq.quiz_submit),
+    path("quiz/<int:pk>/result", vq.quiz_result),
+    path("history", vq.history),
     path("teacher/classes", v.teacher_classes),
     path("teacher/classes/<int:pk>", v.teacher_class_detail),
     path("teacher/classes/<int:pk>/students", v.teacher_students),
