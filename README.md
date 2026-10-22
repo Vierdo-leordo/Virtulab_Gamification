@@ -163,6 +163,43 @@ virtulab-portal/
 
 ---
 
+## Student app
+
+### Running backend & frontend
+
+1. **Start backend API** (terminal 1):
+   ```powershell
+   backend\.venv\Scripts\python.exe backend\manage.py migrate
+   backend\.venv\Scripts\python.exe backend\manage.py runserver
+   ```
+   Backend listens at `http://127.0.0.1:8000/api`.
+
+2. **Start frontend dev server** (terminal 2):
+   ```powershell
+   npm run dev --prefix frontend
+   ```
+   Open `http://localhost:5173` in a mobile-sized window (or 360 px devtools viewport).
+
+### Testing with generate_demo.py
+
+Generate demo completion codes and result tokens for any student ID and salt:
+
+```powershell
+# Generate completion code + token for CuSO4 with test secret
+python lab_pack\generate_demo.py --student STU12345 --item cuso4 --use-test-secret
+
+# Generate code + token with lab mistakes recorded
+python lab_pack\generate_demo.py --student STU12345 --item nacl --att 2 --mis reagent_excess,skipped_flame --wrong CU:SO4 --use-test-secret
+```
+
+1. Log in or register with Student ID (e.g. `STU12345`) and 4-6 digit PIN.
+2. Tap **Redeem a Code** (`/redeem`), paste the generated `CODE` and optional `TOKEN`.
+3. Tap **Start Quiz** (`/quiz/<id>`) to take the adaptive quiz with autosave & review.
+4. View score, points breakdown, badges, and lab insights on the **Results** screen (`/result/<id>`).
+5. Use the bottom navigation to explore **Home**, **Badges** (`/badges`), **History** (`/history`), and **Settings** (`/settings`).
+
+---
+
 ## Making every phase re-runnable
 
 Each phase can be re-run from scratch by:

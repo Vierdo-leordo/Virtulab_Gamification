@@ -21,7 +21,6 @@ export default function HomeScreen() {
   const { me } = useSession();
   const navigate = useNavigate();
 
-  const { i18n } = useTranslation();
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizNotice, setQuizNotice] = useState(null);
@@ -267,9 +266,15 @@ export default function HomeScreen() {
         </div>
 
         {loading ? (
-          <div className="text-center py-5 text-muted small">
-            <div className="spinner-border spinner-border-sm text-primary me-2" role="status" />
-            {t("common.loading")}
+          <div className="salt-grid" aria-hidden="true">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="card salt-card p-3 skeleton-card">
+                <div className="skeleton-box mb-2" style={{ height: 22, width: "50%" }} />
+                <div className="skeleton-box mb-2" style={{ height: 14, width: "80%" }} />
+                <div className="skeleton-box mb-3" style={{ height: 18, width: "100%" }} />
+                <div className="skeleton-box mt-auto" style={{ height: 32, width: "100%", borderRadius: 6 }} />
+              </div>
+            ))}
           </div>
         ) : (
           <div className="salt-grid">

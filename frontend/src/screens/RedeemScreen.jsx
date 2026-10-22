@@ -13,7 +13,7 @@
  *  - Start quiz action calling POST /quiz/start with friendly 404 fallback
  *  - Refreshes Home data on successful redemption
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import api, { getTranslatedError } from "../api.js";
@@ -21,8 +21,12 @@ import { FormattedFormula, IonChip } from "../components/IonDisplay.jsx";
 import { decodeCompletionCode } from "../utils/chemistry.js";
 
 export default function RedeemScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `${t("redeem.title")} — ${t("app_name")}`;
+  }, [t, i18n.language]);
 
   const [code, setCode] = useState("");
   const [token, setToken] = useState("");

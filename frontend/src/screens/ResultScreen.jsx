@@ -22,6 +22,10 @@ export default function ResultScreen() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = `${t("result.title")} — ${t("app_name")}`;
+  }, [t, i18n.language]);
+
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
   const [result, setResult] = useState(null);
@@ -150,6 +154,7 @@ export default function ResultScreen() {
           to="/"
           className="btn btn-sm btn-outline-secondary min-touch-target px-2 py-1 me-2"
           title={t("common.back")}
+          aria-label={t("common.back")}
         >
           &larr;
         </Link>

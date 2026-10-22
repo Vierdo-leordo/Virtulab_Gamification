@@ -276,6 +276,8 @@
     "back": "Back",
     "language": "Language",
     "english": "English",
-    "kannada": "ಕನ್ನಡ"
+    "kannada": "ಕನ್ನಡ",
+    "reload": "Reload page",
+    "back_home": "Back to Home"
   }
 }

@@ -23,9 +23,13 @@ import api, { getTranslatedError } from "../api.js";
 import { FormattedFormula } from "../components/IonDisplay.jsx";
 
 export default function QuizScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `${t("quiz.title")} — ${t("app_name")}`;
+  }, [t, i18n.language]);
 
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
@@ -310,6 +314,7 @@ export default function QuizScreen() {
             to="/"
             className="btn btn-sm btn-outline-secondary min-touch-target px-2 py-1"
             title={t("common.back")}
+            aria-label={t("common.back")}
           >
             &larr;
           </Link>

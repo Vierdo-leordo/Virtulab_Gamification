@@ -4,7 +4,7 @@
  * Form: Student ID + PIN (4-6 digits numeric).
  * Student ID is stripped of spaces and uppercased before submit.
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSession } from "../session.jsx";
@@ -12,9 +12,13 @@ import api, { getTranslatedError } from "../api.js";
 import LanguageSelector from "../components/LanguageSelector.jsx";
 
 export default function LoginScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { login } = useSession();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `${t("login.title")} — ${t("app_name")}`;
+  }, [t, i18n.language]);
 
   const [studentId, setStudentId] = useState("");
   const [pin, setPin] = useState("");

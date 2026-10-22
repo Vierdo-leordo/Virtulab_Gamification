@@ -5,6 +5,7 @@
  */
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SessionProvider } from "./session.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import PublicOnlyRoute from "./components/PublicOnlyRoute.jsx";
 import AppLayout from "./components/AppLayout.jsx";
@@ -22,9 +23,10 @@ import SettingsScreen from "./screens/SettingsScreen.jsx";
 
 export default function App() {
   return (
-    <SessionProvider>
-      <BrowserRouter>
-        <Routes>
+    <ErrorBoundary>
+      <SessionProvider>
+        <BrowserRouter>
+          <Routes>
           {/* Public routes */}
           <Route
             path="/login"
@@ -63,5 +65,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </SessionProvider>
-  );
+  </ErrorBoundary>
+);
 }

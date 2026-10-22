@@ -3,16 +3,20 @@
  * Screen for students to change their PIN.
  * Required when me.must_change_pin is true or accessed via settings.
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSession } from "../session.jsx";
 import api, { getTranslatedError } from "../api.js";
 
 export default function ChangePinScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { updateMe, logout } = useSession();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `${t("change_pin.title")} — ${t("app_name")}`;
+  }, [t, i18n.language]);
 
   const [oldPin, setOldPin] = useState("");
   const [newPin, setNewPin] = useState("");
