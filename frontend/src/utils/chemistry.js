@@ -25,6 +25,58 @@ export const ANIONS = {
   NO3: { key: "NO3", symbol: "NO3-", formula: "NO3", charge: "-", name: "nitrate ion" },
 };
 
+export const ION_DISPLAY_INFO = {
+  // Cations
+  NA: { key: "NA", type: "cation", formula: "Na", charge: "+", name: "sodium ion", tag: "Na+" },
+  "Na+": { key: "NA", type: "cation", formula: "Na", charge: "+", name: "sodium ion", tag: "Na+" },
+
+  NH4: { key: "NH4", type: "cation", formula: "NH4", charge: "+", name: "ammonium ion", tag: "NH4+" },
+  "NH4+": { key: "NH4", type: "cation", formula: "NH4", charge: "+", name: "ammonium ion", tag: "NH4+" },
+
+  CU: { key: "CU", type: "cation", formula: "Cu", charge: "2+", name: "copper(II) ion", tag: "Cu2+" },
+  "Cu2+": { key: "CU", type: "cation", formula: "Cu", charge: "2+", name: "copper(II) ion", tag: "Cu2+" },
+
+  FE2: { key: "FE2", type: "cation", formula: "Fe", charge: "2+", name: "iron(II) ion", tag: "Fe2+" },
+  "Fe2+": { key: "FE2", type: "cation", formula: "Fe", charge: "2+", name: "iron(II) ion", tag: "Fe2+" },
+
+  FE3: { key: "FE3", type: "cation", formula: "Fe", charge: "3+", name: "iron(III) ion", tag: "Fe3+" },
+  "Fe3+": { key: "FE3", type: "cation", formula: "Fe", charge: "3+", name: "iron(III) ion", tag: "Fe3+" },
+
+  AL: { key: "AL", type: "cation", formula: "Al", charge: "3+", name: "aluminium ion", tag: "Al3+" },
+  "Al3+": { key: "AL", type: "cation", formula: "Al", charge: "3+", name: "aluminium ion", tag: "Al3+" },
+
+  ZN: { key: "ZN", type: "cation", formula: "Zn", charge: "2+", name: "zinc ion", tag: "Zn2+" },
+  "Zn2+": { key: "ZN", type: "cation", formula: "Zn", charge: "2+", name: "zinc ion", tag: "Zn2+" },
+
+  BA: { key: "BA", type: "cation", formula: "Ba", charge: "2+", name: "barium ion", tag: "Ba2+" },
+  "Ba2+": { key: "BA", type: "cation", formula: "Ba", charge: "2+", name: "barium ion", tag: "Ba2+" },
+
+  CA: { key: "CA", type: "cation", formula: "Ca", charge: "2+", name: "calcium ion", tag: "Ca2+" },
+  "Ca2+": { key: "CA", type: "cation", formula: "Ca", charge: "2+", name: "calcium ion", tag: "Ca2+" },
+
+  MG: { key: "MG", type: "cation", formula: "Mg", charge: "2+", name: "magnesium ion", tag: "Mg2+" },
+  "Mg2+": { key: "MG", type: "cation", formula: "Mg", charge: "2+", name: "magnesium ion", tag: "Mg2+" },
+
+  PB: { key: "PB", type: "cation", formula: "Pb", charge: "2+", name: "lead(II) ion", tag: "Pb2+" },
+  "Pb2+": { key: "PB", type: "cation", formula: "Pb", charge: "2+", name: "lead(II) ion", tag: "Pb2+" },
+
+  // Anions
+  CL: { key: "CL", type: "anion", formula: "Cl", charge: "-", name: "chloride ion", tag: "Cl-" },
+  "Cl-": { key: "CL", type: "anion", formula: "Cl", charge: "-", name: "chloride ion", tag: "Cl-" },
+
+  SO4: { key: "SO4", type: "anion", formula: "SO4", charge: "2-", name: "sulphate ion", tag: "SO4 2-" },
+  "SO4 2-": { key: "SO4", type: "anion", formula: "SO4", charge: "2-", name: "sulphate ion", tag: "SO4 2-" },
+  "SO4^2-": { key: "SO4", type: "anion", formula: "SO4", charge: "2-", name: "sulphate ion", tag: "SO4 2-" },
+
+  CO3: { key: "CO3", type: "anion", formula: "CO3", charge: "2-", name: "carbonate ion", tag: "CO3 2-" },
+  "CO3 2-": { key: "CO3", type: "anion", formula: "CO3", charge: "2-", name: "carbonate ion", tag: "CO3 2-" },
+  "CO3^2-": { key: "CO3", type: "anion", formula: "CO3", charge: "2-", name: "carbonate ion", tag: "CO3 2-" },
+
+  NO3: { key: "NO3", type: "anion", formula: "NO3", charge: "-", name: "nitrate ion", tag: "NO3-" },
+  "NO3-": { key: "NO3", type: "anion", formula: "NO3", charge: "-", name: "nitrate ion", tag: "NO3-" },
+  "NO3^-": { key: "NO3", type: "anion", formula: "NO3", charge: "-", name: "nitrate ion", tag: "NO3-" },
+};
+
 export const SALT_ITEMS = {
   nacl: { item: "nacl", cation: "NA", anion: "CL", formula: "NaCl", name: "Sodium Chloride" },
   nh4cl: { item: "nh4cl", cation: "NH4", anion: "CL", formula: "NH4Cl", name: "Ammonium Chloride" },

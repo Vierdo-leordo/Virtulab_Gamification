@@ -71,6 +71,7 @@ export default function RedeemScreen() {
         redemption_id: redemptionId,
       });
       if (res?.attempt_id) {
+        localStorage.setItem(`vl_quiz_redemption_${res.attempt_id}`, String(redemptionId));
         navigate(`/quiz/${res.attempt_id}`);
       }
     } catch {

@@ -5,7 +5,7 @@
  * Anion chips: Orange style.
  * Subscripts & superscripts correctly rendered.
  */
-import { CATIONS, ANIONS } from "../utils/chemistry.js";
+import { CATIONS, ANIONS, ION_DISPLAY_INFO } from "../utils/chemistry.js";
 
 /**
  * Format chemical formula string with proper subscripts.
@@ -26,48 +26,33 @@ export function FormattedFormula({ formula }) {
 }
 
 /**
- * Display an ion with formula and charge.
- * e.g. Na+ -> Na⁺, SO4 2- -> SO₄²⁻
+ * Render any ion (by key e.g. "CU", "SO4" or tag e.g. "Cu2+", "SO4 2-")
+ * with proper chemical formula subscript and charge superscript.
  */
-export function FormattedIonSymbol({ ionKey, type }) {
-  const meta = type === "cation" ? CATIONS[ionKey] : ANIONS[ionKey];
-  if (!meta) return <span>{ionKey}</span>;
-
-  // Render specific symbol
-  switch (meta.key) {
-    case "NA":
-      return <span>Na<sup>+</sup></span>;
-    case "NH4":
-      return <span>NH<sub>4</sub><sup>+</sup></span>;
-    case "CU":
-      return <span>Cu<sup>2+</sup></span>;
-    case "FE2":
-      return <span>Fe<sup>2+</sup></span>;
-    case "FE3":
-      return <span>Fe<sup>3+</sup></span>;
-    case "AL":
-      return <span>Al<sup>3+</sup></span>;
-    case "ZN":
-      return <span>Zn<sup>2+</sup></span>;
-    case "BA":
-      return <span>Ba<sup>2+</sup></span>;
-    case "CA":
-      return <span>Ca<sup>2+</sup></span>;
-    case "MG":
-      return <span>Mg<sup>2+</sup></span>;
-    case "PB":
-      return <span>Pb<sup>2+</sup></span>;
-    case "CL":
-      return <span>Cl<sup>-</sup></span>;
-    case "SO4":
-      return <span>SO<sub>4</sub><sup>2-</sup></span>;
-    case "CO3":
-      return <span>CO<sub>3</sub><sup>2-</sup></span>;
-    case "NO3":
-      return <span>NO<sub>3</sub><sup>-</sup></span>;
-    default:
-      return <span>{meta.symbol || ionKey}</span>;
+export function FormattedIon({ ionKeyOrTag }) {
+  if (!ionKeyOrTag) return null;
+  const item =
+    ION_DISPLAY_INFO[ionKeyOrTag] ||
+    ION_DISPLAY_INFO[String(ionKeyOrTag).trim().toUpperCase()];
+  if (item) {
+    return (
+      <span className="font-monospace">
+        <FormattedFormula formula={item.formula} />
+        <sup>{item.charge}</sup>
+      </span>
+    );
   }
+
+  // Fallback for custom radical tags: turn trailing digits into subscripts, charges into superscripts
+  return <span className="font-monospace">{ionKeyOrTag}</span>;
+}
+
+/**
+ * Display an ion with formula and charge.
+ * Kept for backwards compatibility with earlier components.
+ */
+export function FormattedIonSymbol({ ionKey }) {
+  return <FormattedIon ionKeyOrTag={ionKey} />;
 }
 
 /**
@@ -75,16 +60,22 @@ export function FormattedIonSymbol({ ionKey, type }) {
  * Blue style for cations, Orange style for anions.
  */
 export function IonChip({ ionKey, type, showName = true }) {
-  const meta = type === "cation" ? CATIONS[ionKey] : ANIONS[ionKey];
-  const chipClass = type === "cation" ? "ion-chip-cation" : "ion-chip-anion";
+  const resolved =
+    ION_DISPLAY_INFO[ionKey] ||
+    ION_DISPLAY_INFO[String(ionKey).trim().toUpperCase()];
+  const chipType = type || resolved?.type || "cation";
+  const chipClass = chipType === "cation" ? "ion-chip-cation" : "ion-chip-anion";
+  const name =
+    resolved?.name ||
+    (chipType === "cation" ? CATIONS[ionKey]?.name : ANIONS[ionKey]?.name);
 
   return (
     <span className={`ion-chip ${chipClass}`}>
       <span className="ion-chip-symbol">
-        <FormattedIonSymbol ionKey={ionKey} type={type} />
+        <FormattedIon ionKeyOrTag={ionKey} />
       </span>
-      {showName && meta?.name && (
-        <span className="ion-chip-name">{meta.name}</span>
+      {showName && name && (
+        <span className="ion-chip-name">{name}</span>
       )}
     </span>
   );
